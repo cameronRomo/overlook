@@ -5,11 +5,6 @@ import { bookings } from '../data/bookings'
 import { rooms } from '../data/rooms'
 import User from '../src/User'
 
-describe('See if the tests are running', function() {
-  it('should return true', function() {
-    expect(true).to.equal(true);
-  });
-});
 describe('User', function() {
   let user;
   beforeEach(() => {
@@ -56,5 +51,15 @@ describe('User', function() {
   it('should show all availableRooms for a specific date', function() {
     let availableRooms = user.checkAvailability(bookings, rooms, "2020/04/22")
     expect(availableRooms).to.deep.equal([rooms[0], rooms[1], rooms[2]])
+  })
+
+  it('should filter room by type and date', function() {
+    let filteredRooms = user.filterRoomByType(bookings, rooms, "2020/04/22", "single room");
+    expect(filteredRooms[0]).to.deep.equal(rooms[2]);
+  })
+
+  it('should appologise if that type is not found for a specific date', function() {
+    let filteredRooms = user.filterRoomByType(bookings, rooms, "2020/04/22", "totally a type");
+    expect(filteredRooms).to.equal('We prostrate ourselves before you and beg you for your forgiveness! There are no totally a type\'s available at that time.')
   })
 })
