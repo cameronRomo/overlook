@@ -1,4 +1,3 @@
-import Booking from '../src/Booking'
 export default class User {
   constructor(userDetails) {
     this.id = userDetails.id;
@@ -49,5 +48,17 @@ export default class User {
       return (!unavailableRooms.includes(room));
     })
     return availableRooms;
+  }
+
+  filterRoomByType(bookingsDetails, roomsDetails, date, type) {
+    let availableRooms = this.checkAvailability(bookingsDetails, roomsDetails, date);
+    let roomsByType = availableRooms.filter(room => {
+      return room.roomType === type;
+    })
+    if(roomsByType.length === 0) {
+      return `We prostrate ourselves before you and beg you for your forgiveness! There are no ${type}\'s available at that time.`
+    } else {
+      return roomsByType;
+    }
   }
 }
