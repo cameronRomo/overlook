@@ -9,11 +9,54 @@ html,body {
 }
 
 body {
-  background: $primary-background;
+  background-image: url('../images/grand-budapest.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   font-family: 'Lora', serif;
 }
 
-.span__image {
-  height: 2%;
-  width: 2%;
+button {
+  background: $primary-background;
+  color: #E9898B;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+p {
+  color: #ffebcd;
+}
+
+h1 {
+  color: honeydew;
+}
+
+.welcome {
+  color: #ffebcd;
+}
+
+.body__modal__login-container {
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  background-color: #ffebcd;
+  opacity: 95%;
+}
+
+.body__manager__dashboard--today {
+  color: darkslategray;
+  font-weight: bolder;
+}
+
+.body__image {
+  height: 4%;
+  width: 4%;
+}
+
+.hidden {
+  display: none;
 }

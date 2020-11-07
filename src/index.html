@@ -5,13 +5,54 @@
     <title>Welcome to the Overlook</title>
   </head>
   <body>
-    <header>
-      <h1>The Overlook Hotel</h1>
-      <span class="span">
-        <img class="span__image" src="./images/user.svg" alt="user-icon">
-        <button class="span__button">Sign In</button>
-      </span>
-    </header>
+    <nav class="nav">
+      <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label>
+      <select class="body__manager__dashboard-user-dropdown" onchange="" name="users">
+        <option id="user-drop" disabled selected value> -- choose a user -- </option>
+      </select>
+      <label for="booking-date">View Room Availablity by Date</label>
+      <input type="date" name="booking-date" required>
+      <label for="room-search">Search Room by Type</label>
+      <input type="text" name="room-search" placeholder="i.e. residential suite">
+    </nav>
+    <h1 class="welcome">The Overlook Hotel</h1>
+    <section class="body__login hidden">
+        <h2 class="welcome">Welcome Back!</h2>
+        <span class="body__modal">
+          <form class="body__modal__login" action="/action_page.php" method="post">
+            <div class="body__modal__login-container">
+              <label for="username">Username</label>
+              <input type="text" name="username" placeholder="Enter Username" required>
+              <label for="password">Password</label>
+              <input type="password" name="password" placeholder="Enter Password" required>
+              <img class="body__image" src="./images/user.svg" alt="user-icon">
+              <button class="body__span__button">Sign In</button>
+            </div>
+          </form>
+        </span>
+    </section>
+    <section class="body__user hidden">
+      <section class="body__user__dashboard">
+        <article class="body__user__dashboard__bookings">
+          <p>Booking Info</p>
+          <p>Total Spent</p>
+        </article>
+      </section>
+    </section>
+    <section class="body__manager hidden">
+      <section class="body__manager__dashboard">
+        <h1>Today's Breakdown</h1>
+        <article class="body__manager__dashboard__availability">
+          <p>Available Rooms</p>
+        </article>
+        <article class="body__manager__dashboard__revenue">
+          <p>Total Revenue</p>
+        </article>
+        <article class="body__manager__dashboard__rooms-ocupied">
+          <p>Rooms Occupied</p>
+        </article>
+      </section>
+    </section>
   </body>
   <!-- Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> -->
 </html>
