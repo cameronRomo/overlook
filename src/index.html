@@ -16,8 +16,7 @@
       <input type="text" name="room-search" placeholder="i.e. residential suite">
     </nav>
     <h1 class="welcome">The Overlook Hotel</h1>
-    <section class="body__login">
-        <h2 class="welcome">Welcome Back!</h2>
+    <!-- <section class="body__login">
         <span class="body__modal">
           <form class="body__modal__login" action="/action_page.php" method="post">
             <div class="body__modal__login-container">
@@ -30,7 +29,7 @@
             </div>
           </form>
         </span>
-    </section>
+    </section> -->
     <section class="body__user hidden">
       <section class="body__user__dashboard">
         <article class="body__user__dashboard__bookings">
@@ -53,6 +52,21 @@
         </article>
       </section>
     </section>
+    <section class="modal" id="login">
+      <span class="modal">
+        <form class="modal__content" action="/action_page.php" method="post">
+            <label class="modal__content__username" for="username">Username</label>
+            <input class="modal__content__user-input" type="text" name="username" placeholder="Enter Username" required>
+            <label class="modal__content__user-password" for="password">Password</label>
+            <input class="modal__content__user-input" type="password" name="password" placeholder="Enter Password" required>
+            <!-- <img class="body__image" src="./images/user.svg" alt="user-icon"> -->
+            <button class="modal__login__button">Sign In</button>
+        </form>
+      </span>
+    </section>
+    <div class="modal__overlay">
+      <h2 class="modal__overlay-welcome">Welcome Back!</h2>
+    </div>
   </body>
   <!-- Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> -->
 </html>
