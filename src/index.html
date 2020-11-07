@@ -5,7 +5,7 @@
     <title>Welcome to the Overlook</title>
   </head>
   <body>
-    <nav class="nav">
+    <nav class="nav hidden">
       <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label>
       <select class="body__manager__dashboard-user-dropdown" onchange="" name="users">
         <option id="user-drop" disabled selected value> -- choose a user -- </option>
@@ -16,7 +16,7 @@
       <input type="text" name="room-search" placeholder="i.e. residential suite">
     </nav>
     <h1 class="welcome">The Overlook Hotel</h1>
-    <section class="body__login hidden">
+    <section class="body__login">
         <h2 class="welcome">Welcome Back!</h2>
         <span class="body__modal">
           <form class="body__modal__login" action="/action_page.php" method="post">
