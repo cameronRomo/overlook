@@ -29,7 +29,7 @@ class Manager extends User {
     let unavailableRooms = this.noVacancy(bookingsDetails, roomsDetails, date).length
     let ratio = unavailableRooms / roomsDetails.length
     let percent = ratio * 100;
-    return `${percent}% of rooms are occupied`
+    return `${percent}% of rooms are occupied.`
   }
 
   totalRevenue(bookingsDetails, roomsDetails, date) {
