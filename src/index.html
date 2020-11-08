@@ -6,9 +6,11 @@
   </head>
   <body>
     <nav class="nav hidden">
-      <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label>
-      <select class="body__manager__dashboard-user-dropdown" onchange="chooseUser(this)" name="users">
-        <option id="user-drop" disabled selected value> -- choose a customer -- </option>
+      <div class="nav__manager__dropdown">
+        <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label>
+        <select class="body__manager__dashboard-user-dropdown" onchange="chooseUser(this)" name="users">
+          <option id="user-drop" disabled selected value> -- choose a customer -- </option>
+      </div>
       </select>
       <label for="booking-date">View Room Availablity by Date</label>
       <input type="date" name="booking-date" required>
@@ -19,8 +21,8 @@
     <section class="body__user hidden">
       <section class="body__user__dashboard">
         <article class="body__user__dashboard__bookings">
-          <p>Booking Info</p>
-          <p>Total Spent</p>
+          <p class="user__total">Total Spent</p>
+          <p>Here is your Booking Info:</p>
         </article>
       </section>
     </section>

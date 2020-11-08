@@ -25,12 +25,15 @@ const userPasswordInput = document.querySelector('#password');
 const signInButton = document.querySelector('.modal__login__button');
 const managerAvailability = document.querySelector('.body__manager__availability__count');
 const revenueForDay = document.querySelector('.body__manager__revenue');
+const customerTotal = document.querySelector('.user__total');
 const percentTaken = document.querySelector('.body__manager__percent__occupied');
 const managerDash = document.querySelector('.body__manager');
+const userDash = document.querySelector('.body__user')
 const nav = document.querySelector('.nav');
 const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
 const userDrop = document.querySelector('#user-drop');
+const dropdownForManager = document.querySelector('.nav__manager__dropdown');
 
 signInButton.addEventListener('click', validateLogin);
 
@@ -58,12 +61,14 @@ function validateLogin(event) {
   if (usernameInput.value === 'manager' && userPasswordInput.value === 'overlook2020') {
     currentUser = new Manager();
     openManagerDash();
-    console.log(currentUser);
-    // helper funtion to show manager dashboard
   } else if (usernameInput.value.slice(0, 8) === 'customer' && userPasswordInput.value === 'overlook2020') {
     let currentId = Number(usernameInput.value.slice(8));
+    if (currentId > 50) {
+      alert("Appologies, the username or password you have entered does not match any we have on file. Please try again!")
+    }
     let userById = userData.find(user => user.id === currentId);
     currentUser = new User(userById)
+    openUserDash();
     // helper function to show customer dashboard
   } else {
     alert("Appologies, the username or password you have entered does not match any we have on file. Please try again!")
@@ -78,6 +83,21 @@ function openManagerDash() {
   numberOfRoomsAvailable(bookingData, roomData, "2020/04/22");
   todaysRevenue(bookingData, roomData, "2020/04/22");
   percentOccupied(bookingData, roomData, "2020/04/22");
+}
+
+function openUserDash() {
+  userDash.classList.remove('hidden');
+  nav.classList.remove('hidden');
+  dropdownForManager.classList.add('hidden');
+  modal.classList.add('hidden');
+  modalOverlay.classList.add('hidden');
+  displayTotalSpent(bookingData, roomData);
+}
+
+function displayTotalSpent(bookings, rooms) {
+  let totalSpent = currentUser.calculateTotal(bookings, rooms);
+  customerTotal.innerText = `Welcome back ${currentUser.name}! You have spent $${totalSpent} at the Overlook.`
+  console.log(totalSpent);
 }
 
 function numberOfRoomsAvailable(bookings, rooms, date) {
