@@ -7,8 +7,8 @@
   <body>
     <nav class="nav hidden">
       <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label>
-      <select class="body__manager__dashboard-user-dropdown" onchange="" name="users">
-        <option id="user-drop" disabled selected value> -- choose a user -- </option>
+      <select class="body__manager__dashboard-user-dropdown" onchange="chooseUser(this)" name="users">
+        <option id="user-drop" disabled selected value> -- choose a customer -- </option>
       </select>
       <label for="booking-date">View Room Availablity by Date</label>
       <input type="date" name="booking-date" required>
@@ -28,13 +28,13 @@
       <section class="body__manager__dashboard">
         <h1>Today's Breakdown</h1>
         <article class="body__manager__dashboard__availability">
-          <p>Available Rooms</p>
+          <p class="body__manager__availability__count">Available Rooms</p>
         </article>
         <article class="body__manager__dashboard__revenue">
-          <p>Total Revenue</p>
+          <p class="body__manager__revenue">Total Revenue</p>
         </article>
         <article class="body__manager__dashboard__rooms-ocupied">
-          <p>Rooms Occupied</p>
+          <p class="body__manager__percent__occupied">Rooms Occupied</p>
         </article>
       </section>
     </section>
@@ -51,7 +51,7 @@
       </span>
     </section>
     <div class="modal__overlay">
-      <h2 class="modal__overlay-welcome">Welcome Back!</h2>
+      <h2 class="modal__overlay-welcome">Welcome! Please sign in.</h2>
     </div>
   </body>
   <!-- Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> -->
