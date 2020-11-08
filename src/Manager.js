@@ -1,5 +1,5 @@
 import User from '../src/User'
-export default class Manager extends User {
+class Manager extends User {
   constructor(userDetails) {
     super(userDetails);
   }
@@ -40,3 +40,5 @@ export default class Manager extends User {
     }, 0).toFixed(2))
   }
 }
+
+export default Manager;

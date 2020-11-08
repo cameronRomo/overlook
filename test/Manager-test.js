@@ -9,11 +9,19 @@ import Manager from '../src/Manager'
 describe('Manager', function() {
   let manager;
   beforeEach(() => {
-    manager = new Manager(users[0]);
+    manager = new Manager();
   })
 
   it('should be an instance of Manager', function() {
     expect(manager).to.be.an.instanceof(Manager);
+  })
+
+  it('should have an id', function() {
+    expect(manager.id).to.equal(117);
+  })
+
+  it('should have a name', function() {
+    expect(manager.name).to.equal('Guy');
   })
 
   it('should find a user given a specific name', function() {

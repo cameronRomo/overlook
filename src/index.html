@@ -16,20 +16,6 @@
       <input type="text" name="room-search" placeholder="i.e. residential suite">
     </nav>
     <h1 class="welcome">The Overlook Hotel</h1>
-    <!-- <section class="body__login">
-        <span class="body__modal">
-          <form class="body__modal__login" action="/action_page.php" method="post">
-            <div class="body__modal__login-container">
-              <label for="username">Username</label>
-              <input type="text" name="username" placeholder="Enter Username" required>
-              <label for="password">Password</label>
-              <input type="password" name="password" placeholder="Enter Password" required>
-              <img class="body__image" src="./images/user.svg" alt="user-icon">
-              <button class="body__span__button">Sign In</button>
-            </div>
-          </form>
-        </span>
-    </section> -->
     <section class="body__user hidden">
       <section class="body__user__dashboard">
         <article class="body__user__dashboard__bookings">
@@ -54,13 +40,13 @@
     </section>
     <section class="modal" id="login">
       <span class="modal">
-        <form class="modal__content" action="/action_page.php" method="post">
+        <form class="modal__content">
             <label class="modal__content__username" for="username">Username</label>
-            <input class="modal__content__user-input" type="text" name="username" placeholder="Enter Username" required>
+            <input class="modal__content__user-input" id="username" type="text" name="username" placeholder="Enter Username" required>
             <label class="modal__content__user-password" for="password">Password</label>
-            <input class="modal__content__user-input" type="password" name="password" placeholder="Enter Password" required>
+            <input class="modal__content__user-input" id="password" type="password" name="password" placeholder="Enter Password" required>
             <!-- <img class="body__image" src="./images/user.svg" alt="user-icon"> -->
-            <button class="modal__login__button">Sign In</button>
+            <input class="modal__login__button" type="submit" value="Sign In">
         </form>
       </span>
     </section>
