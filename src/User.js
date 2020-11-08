@@ -1,7 +1,7 @@
-export default class User {
-  constructor(userDetails) {
-    this.id = userDetails.id;
-    this.name = userDetails.name;
+class User {
+  constructor(userDetails = {}) {
+    this.id = userDetails.id || 117;
+    this.name = userDetails.name || 'Guy';
   }
 
   makeBooking(userID, date, roomNumber) {
@@ -62,3 +62,5 @@ export default class User {
     }
   }
 }
+
+export default User;
