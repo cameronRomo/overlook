@@ -1,7 +1,7 @@
 class User {
   constructor(userDetails = {}) {
     this.id = userDetails.id || 117;
-    this.name = userDetails.name || 'Guy';
+    this.name = userDetails.name || 'His/Her Highness';
   }
 
   makeBooking(userID, date, roomNumber) {
