@@ -35,11 +35,16 @@ const modalOverlay = document.querySelector('.modal__overlay');
 const userDrop = document.querySelector('#user-drop');
 const dropdownForManager = document.querySelector('.nav__manager__dropdown');
 const customerRoomsSection = document.querySelector('.past__upcoming__bookings');
+const searchedRooms = document.querySelector('.show__rooms__on__search');
 const dateSelect = document.querySelector('.booking__dates');
-const dateSubmitButton = document.querySelector('#date__submit')
+const dateSubmitButton = document.querySelector('#date__submit');
+const typeSearch = document.querySelector('#type__search');
+const typeSubmitButton = document.querySelector('#room-search__type');
 
 signInButton.addEventListener('click', validateLogin);
 dateSubmitButton.addEventListener('click', getDate);
+typeSubmitButton.addEventListener('click', getType);
+
 
 const recievedUsersData = apiRequest.getUsersData();
 const recievedRoomsData = apiRequest.getRoomsData();
@@ -53,8 +58,6 @@ Promise.all([recievedUsersData, recievedRoomsData, recievedBookingsData])
     startApp();
   })
   .catch(error => console.log(error));
-
-
 
 function startApp() {
   showUsers();
@@ -81,7 +84,6 @@ function validateLogin(event) {
     let userById = userData.find(user => user.id === currentId);
     currentUser = new User(userById)
     openUserDash();
-    // helper function to show customer dashboard
   } else {
     alert("Appologies, the username or password you have entered does not match any we have on file. Please try again!")
   }
@@ -109,7 +111,7 @@ function openUserDash() {
 
 function displayTotalSpent(bookings, rooms) {
   let totalSpent = currentUser.calculateTotal(bookings, rooms);
-  customerTotal.innerText = `Welcome back ${currentUser.name}! You have spent $${totalSpent} at the Overlook.`
+  customerTotal.innerText = `Welcome back ${currentUser.name}! You have spent $${totalSpent} at the Overlook.`;
 }
 
 function findRooms(bookings, rooms) {
@@ -124,25 +126,47 @@ function findRooms(bookings, rooms) {
   return userRooms;
 }
 
-function getDate() {
-  console.log(dateSelect.value);
-  let today = getTodaysDate();
-  console.log(today);
+function getType() {
+  let selectedDate = dateSelect.value;
+  let search = typeSearch.value;
+  let typeResults = currentUser.filterRoomByType(bookingData, roomData, selectedDate, search);
+  displayRooms(typeResults);
 }
-// let roomsHTML = '';
+
+function getDate() {
+  let selectedDate = dateSelect.value;
+  let availableRooms = currentUser.checkAvailability(bookingData, roomData, selectedDate);
+  displayRooms(availableRooms);
+  // console.log(availableRooms);
+  // let today = getTodaysDate();
+  // console.log(today);
+}
+
+function bookRoom(event) {
+  if(event.target.id === 'book__room') {
+    console.log(this);
+  }
+}
+
+function displayRooms(roomSet) {
+let roomsHTML = '';
 // let userRooms = findRooms(bookingData, roomData);
-// userRooms.forEach(room => {
-//   let roomDisplay = `<article class='past__upcoming__bookings__user'>
-//                       <img class='past__upcoming__bookings__user__image'>
-//                       <p>Room Number: ${room.number}</p>
-//                       <p>Room Type: ${room.roomType}</p>
-//                       <p>Bidet? ${room.bidet}</p>
-//                       <p>Bed Size: ${room.bedSize}</p>
-//                       <p>Nuber of Beds: ${room.numBeds}</p>
-//                       <p>Cost Per Night: ${room.costPerNight}</p>
-//                     </article>`;
-//   roomsHTML += roomDisplay;
-// })
+  roomSet.forEach(room => {
+    let roomDisplay = `<article class='available__rooms'>
+                        <p>Room Number: ${room.number}</p>
+                        <p>Room Type: ${room.roomType}</p>
+                        <p>Bidet? ${room.bidet}</p>
+                        <p>Bed Size: ${room.bedSize}</p>
+                        <p>Nuber of Beds: ${room.numBeds}</p>
+                        <p>Cost Per Night: ${room.costPerNight}</p>
+                        <button id='book__room'>Book This Room</button>
+                      </article>`;
+    roomsHTML += roomDisplay;
+  })
+  searchedRooms.innerHTML = roomsHTML;
+  let bookRoomButton = document.querySelector('#book__room');
+  bookRoomButton.addEventListener('click', bookRoom);
+}
 
 
 function displayRoomBookings() {
