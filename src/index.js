@@ -34,9 +34,12 @@ const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
 const userDrop = document.querySelector('#user-drop');
 const dropdownForManager = document.querySelector('.nav__manager__dropdown');
-const customerRoomsSection = document.querySelector('.past__upcoming__bookings')
+const customerRoomsSection = document.querySelector('.past__upcoming__bookings');
+const dateSelect = document.querySelector('.booking__dates');
+const dateSubmitButton = document.querySelector('#date__submit')
 
 signInButton.addEventListener('click', validateLogin);
+dateSubmitButton.addEventListener('click', getDate);
 
 const recievedUsersData = apiRequest.getUsersData();
 const recievedRoomsData = apiRequest.getRoomsData();
@@ -55,6 +58,14 @@ Promise.all([recievedUsersData, recievedRoomsData, recievedBookingsData])
 
 function startApp() {
   showUsers();
+}
+
+function getTodaysDate() {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+  return today = yyyy + '-' + mm + '-' + dd;
 }
 
 function validateLogin(event) {
@@ -111,6 +122,12 @@ function findRooms(bookings, rooms) {
       return roomsPayedFor;
   }, []);
   return userRooms;
+}
+
+function getDate() {
+  console.log(dateSelect.value);
+  let today = getTodaysDate();
+  console.log(today);
 }
 // let roomsHTML = '';
 // let userRooms = findRooms(bookingData, roomData);
