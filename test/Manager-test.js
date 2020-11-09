@@ -50,7 +50,7 @@ describe('Manager', function() {
 
   it('should calculate the percent of rooms occupied', function() {
     let percentOccupied = manager.calculatePercentOccupied(bookings, rooms, "2020/04/22")
-    expect(percentOccupied).to.equal('40% of rooms are occupied')
+    expect(percentOccupied).to.equal('40% of rooms are occupied.')
   })
 
   it('should calculate the revenue for a day\'s date', function() {
