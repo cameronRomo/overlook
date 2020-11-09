@@ -8,21 +8,23 @@
     <nav class="nav hidden">
     <div class="nav__manager__dropdown hidden">
       <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label>
-      <select class="body__manager__dashboard-user-dropdown" onchange="chooseUser(this)" name="users">
+      <select class="body__manager__dashboard-user-dropdown__select" name="users">
         <option id="user-drop" disabled selected value> -- choose a customer -- </option>
       </select>
       </div>
       <label for="booking-date">View Room Availablity by Date</label>
-      <input type="date" name="booking-date" required>
+      <input class="booking__dates" type="date" name="booking-date" required>
+      <button id="date__submit">Search by Date Only</button>
       <label for="room-search">Search Room by Type</label>
-      <input type="text" name="room-search" placeholder="i.e. residential suite">
+      <input id="type__search" type="text" name="room-search" placeholder="i.e. residential suite">
+      <button id="room-search__type">Search Rooms by Date and Type</button>
     </nav>
     <h1 class="welcome">The Overlook Hotel</h1>
     <section class="body__user hidden">
       <section class="body__user__dashboard">
         <article class="body__user__dashboard__bookings">
           <p class="user__total">Total Spent</p>
-          <p>Here is your Booking Info:</p>
+          <p class="show__rooms__on__search">Here is your Booking Info:</p>
           <p class="past__upcoming__bookings"></p>
         </article>
       </section>
