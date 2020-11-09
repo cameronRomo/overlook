@@ -34,6 +34,7 @@ const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
 const userDrop = document.querySelector('#user-drop');
 const dropdownForManager = document.querySelector('.nav__manager__dropdown');
+const customerRoomsSection = document.querySelector('.past__upcoming__bookings')
 
 signInButton.addEventListener('click', validateLogin);
 
@@ -87,17 +88,58 @@ function openManagerDash() {
 
 function openUserDash() {
   userDash.classList.remove('hidden');
+  //dropdownForManager.classList.add('hidden');
   nav.classList.remove('hidden');
-  dropdownForManager.classList.add('hidden');
   modal.classList.add('hidden');
   modalOverlay.classList.add('hidden');
   displayTotalSpent(bookingData, roomData);
+  displayRoomBookings();
 }
 
 function displayTotalSpent(bookings, rooms) {
   let totalSpent = currentUser.calculateTotal(bookings, rooms);
   customerTotal.innerText = `Welcome back ${currentUser.name}! You have spent $${totalSpent} at the Overlook.`
-  console.log(totalSpent);
+}
+
+function findRooms(bookings, rooms) {
+  let userBookings = currentUser.viewBookings(bookings);
+  let userRooms = userBookings.reduce((roomsPayedFor, booking) => {
+      let userRoom = rooms.find(room => {
+       return booking.roomNumber === room.number;
+      })
+      roomsPayedFor.push(userRoom);
+      return roomsPayedFor;
+  }, []);
+  return userRooms;
+}
+// let roomsHTML = '';
+// let userRooms = findRooms(bookingData, roomData);
+// userRooms.forEach(room => {
+//   let roomDisplay = `<article class='past__upcoming__bookings__user'>
+//                       <img class='past__upcoming__bookings__user__image'>
+//                       <p>Room Number: ${room.number}</p>
+//                       <p>Room Type: ${room.roomType}</p>
+//                       <p>Bidet? ${room.bidet}</p>
+//                       <p>Bed Size: ${room.bedSize}</p>
+//                       <p>Nuber of Beds: ${room.numBeds}</p>
+//                       <p>Cost Per Night: ${room.costPerNight}</p>
+//                     </article>`;
+//   roomsHTML += roomDisplay;
+// })
+
+
+function displayRoomBookings() {
+  let bookingHTML = '';
+  let userBookings = currentUser.viewBookings(bookingData);
+  userBookings.forEach(booking => {
+    let bookingDisplay = `<article class='past__upcoming__bookings__user'>
+                            <img class='past__upcoming__bookings__user__image'>
+                            <p>Room Number: ${booking.roomNumber}</p>
+                            <p>Booking Date: ${booking.date}</p>
+                          </article>`;
+    bookingHTML += bookingDisplay;
+  })
+  customerRoomsSection.innerHTML = bookingHTML;
 }
 
 function numberOfRoomsAvailable(bookings, rooms, date) {
