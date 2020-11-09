@@ -56,7 +56,7 @@ class User {
       return room.roomType === type;
     })
     if(roomsByType.length === 0) {
-      return `We prostrate ourselves before you and beg you for your forgiveness! There are no ${type}\'s available at that time.`
+      alert(`We prostrate ourselves before you and beg you for your forgiveness! There are no ${type}\'s available at that time.`)
     } else {
       return roomsByType;
     }
