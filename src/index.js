@@ -25,12 +25,16 @@ const userPasswordInput = document.querySelector('#password');
 const signInButton = document.querySelector('.modal__login__button');
 const managerAvailability = document.querySelector('.body__manager__availability__count');
 const revenueForDay = document.querySelector('.body__manager__revenue');
+const customerTotal = document.querySelector('.user__total');
 const percentTaken = document.querySelector('.body__manager__percent__occupied');
 const managerDash = document.querySelector('.body__manager');
+const userDash = document.querySelector('.body__user')
 const nav = document.querySelector('.nav');
 const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
 const userDrop = document.querySelector('#user-drop');
+const dropdownForManager = document.querySelector('.nav__manager__dropdown');
+const customerRoomsSection = document.querySelector('.past__upcoming__bookings')
 
 signInButton.addEventListener('click', validateLogin);
 
@@ -58,12 +62,14 @@ function validateLogin(event) {
   if (usernameInput.value === 'manager' && userPasswordInput.value === 'overlook2020') {
     currentUser = new Manager();
     openManagerDash();
-    console.log(currentUser);
-    // helper funtion to show manager dashboard
   } else if (usernameInput.value.slice(0, 8) === 'customer' && userPasswordInput.value === 'overlook2020') {
     let currentId = Number(usernameInput.value.slice(8));
+    if (currentId > 50) {
+      alert("Appologies, the username or password you have entered does not match any we have on file. Please try again!")
+    }
     let userById = userData.find(user => user.id === currentId);
     currentUser = new User(userById)
+    openUserDash();
     // helper function to show customer dashboard
   } else {
     alert("Appologies, the username or password you have entered does not match any we have on file. Please try again!")
@@ -78,6 +84,62 @@ function openManagerDash() {
   numberOfRoomsAvailable(bookingData, roomData, "2020/04/22");
   todaysRevenue(bookingData, roomData, "2020/04/22");
   percentOccupied(bookingData, roomData, "2020/04/22");
+}
+
+function openUserDash() {
+  userDash.classList.remove('hidden');
+  //dropdownForManager.classList.add('hidden');
+  nav.classList.remove('hidden');
+  modal.classList.add('hidden');
+  modalOverlay.classList.add('hidden');
+  displayTotalSpent(bookingData, roomData);
+  displayRoomBookings();
+}
+
+function displayTotalSpent(bookings, rooms) {
+  let totalSpent = currentUser.calculateTotal(bookings, rooms);
+  customerTotal.innerText = `Welcome back ${currentUser.name}! You have spent $${totalSpent} at the Overlook.`
+}
+
+function findRooms(bookings, rooms) {
+  let userBookings = currentUser.viewBookings(bookings);
+  let userRooms = userBookings.reduce((roomsPayedFor, booking) => {
+      let userRoom = rooms.find(room => {
+       return booking.roomNumber === room.number;
+      })
+      roomsPayedFor.push(userRoom);
+      return roomsPayedFor;
+  }, []);
+  return userRooms;
+}
+// let roomsHTML = '';
+// let userRooms = findRooms(bookingData, roomData);
+// userRooms.forEach(room => {
+//   let roomDisplay = `<article class='past__upcoming__bookings__user'>
+//                       <img class='past__upcoming__bookings__user__image'>
+//                       <p>Room Number: ${room.number}</p>
+//                       <p>Room Type: ${room.roomType}</p>
+//                       <p>Bidet? ${room.bidet}</p>
+//                       <p>Bed Size: ${room.bedSize}</p>
+//                       <p>Nuber of Beds: ${room.numBeds}</p>
+//                       <p>Cost Per Night: ${room.costPerNight}</p>
+//                     </article>`;
+//   roomsHTML += roomDisplay;
+// })
+
+
+function displayRoomBookings() {
+  let bookingHTML = '';
+  let userBookings = currentUser.viewBookings(bookingData);
+  userBookings.forEach(booking => {
+    let bookingDisplay = `<article class='past__upcoming__bookings__user'>
+                            <img class='past__upcoming__bookings__user__image'>
+                            <p>Room Number: ${booking.roomNumber}</p>
+                            <p>Booking Date: ${booking.date}</p>
+                          </article>`;
+    bookingHTML += bookingDisplay;
+  })
+  customerRoomsSection.innerHTML = bookingHTML;
 }
 
 function numberOfRoomsAvailable(bookings, rooms, date) {
