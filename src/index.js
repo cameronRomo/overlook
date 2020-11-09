@@ -18,7 +18,7 @@ let roomData;
 let bookingData;
 
 let currentUser;
-// let manager;
+let userSelectedDate;
 
 const usernameInput = document.querySelector('#username');
 const userPasswordInput = document.querySelector('#password');
@@ -34,21 +34,25 @@ const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
 const userDrop = document.querySelector('#user-drop');
 const dropdownForManager = document.querySelector('.nav__manager__dropdown');
+const dropdownForManagerSelection = document.querySelector('.body__manager__dashboard-user-dropdown__select')
 const customerRoomsSection = document.querySelector('.past__upcoming__bookings');
 const searchedRooms = document.querySelector('.show__rooms__on__search');
 const dateSelect = document.querySelector('.booking__dates');
 const dateSubmitButton = document.querySelector('#date__submit');
 const typeSearch = document.querySelector('#type__search');
 const typeSubmitButton = document.querySelector('#room-search__type');
+const bookRoomButton = document.querySelector('.body__user__dashboard__bookings');
 
 signInButton.addEventListener('click', validateLogin);
-dateSubmitButton.addEventListener('click', getDate);
+dateSubmitButton.addEventListener('click', getSelectedDate);
 typeSubmitButton.addEventListener('click', getType);
-
+bookRoomButton.addEventListener('click', bookRoom);
+dropdownForManagerSelection.addEventListener('click', chooseUser);
 
 const recievedUsersData = apiRequest.getUsersData();
 const recievedRoomsData = apiRequest.getRoomsData();
 const recievedBookingsData = apiRequest.getBookingsData();
+
 
 Promise.all([recievedUsersData, recievedRoomsData, recievedBookingsData])
   .then(value => {
@@ -91,6 +95,7 @@ function validateLogin(event) {
 
 function openManagerDash() {
   managerDash.classList.remove('hidden');
+  dropdownForManager.classList.remove('hidden');
   nav.classList.remove('hidden');
   modal.classList.add('hidden');
   modalOverlay.classList.add('hidden');
@@ -101,7 +106,7 @@ function openManagerDash() {
 
 function openUserDash() {
   userDash.classList.remove('hidden');
-  //dropdownForManager.classList.add('hidden');
+  dropdownForManager.classList.add('hidden');
   nav.classList.remove('hidden');
   modal.classList.add('hidden');
   modalOverlay.classList.add('hidden');
@@ -133,9 +138,10 @@ function getType() {
   displayRooms(typeResults);
 }
 
-function getDate() {
-  let selectedDate = dateSelect.value;
-  let availableRooms = currentUser.checkAvailability(bookingData, roomData, selectedDate);
+function getSelectedDate() {
+  userSelectedDate = dateSelect.value.replaceAll('-', '/');
+  console.log(userSelectedDate);
+  let availableRooms = currentUser.checkAvailability(bookingData, roomData, userSelectedDate);
   displayRooms(availableRooms);
   // console.log(availableRooms);
   // let today = getTodaysDate();
@@ -144,7 +150,8 @@ function getDate() {
 
 function bookRoom(event) {
   if(event.target.id === 'book__room') {
-    console.log(this);
+    let newBooking = currentUser.makeBooking(currentUser.id, userSelectedDate, event.target.value)
+    apiRequest.recordBooking(newBooking);
   }
 }
 
@@ -159,13 +166,13 @@ let roomsHTML = '';
                         <p>Bed Size: ${room.bedSize}</p>
                         <p>Nuber of Beds: ${room.numBeds}</p>
                         <p>Cost Per Night: ${room.costPerNight}</p>
-                        <button id='book__room'>Book This Room</button>
+                        <button value='${room.number}' id='book__room'>Book This Room</button>
                       </article>`;
     roomsHTML += roomDisplay;
   })
   searchedRooms.innerHTML = roomsHTML;
-  let bookRoomButton = document.querySelector('#book__room');
-  bookRoomButton.addEventListener('click', bookRoom);
+  // let bookRoomButton = document.querySelector('#book__room');
+  // bookRoomButton.addEventListener('click', bookRoom);
 }
 
 
@@ -177,6 +184,7 @@ function displayRoomBookings() {
                             <img class='past__upcoming__bookings__user__image'>
                             <p>Room Number: ${booking.roomNumber}</p>
                             <p>Booking Date: ${booking.date}</p>
+                            <button value='${booking.roomNumber}' id='remove__booking'>Cancel Booking</button>
                           </article>`;
     bookingHTML += bookingDisplay;
   })
@@ -199,9 +207,10 @@ function percentOccupied(bookings, rooms, date) {
 
 function chooseUser(option) {
   // not working, seems to be undefined in the html...
-  newUser = userData.find(user => option.value === user.name);
-  currentUser = new User(newUser);
-  console.log(currentUser);
+  console.log(option.target.options);
+  // newUser = userData.find(user => option.value === user.name);
+  // currentUser = new User(newUser);
+  // console.log(currentUser);
 }
 
 function showUsers() {
