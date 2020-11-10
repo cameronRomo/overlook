@@ -161,7 +161,13 @@ function getSelectedDate() {
 function bookRoom(event) {
   if(event.target.id === 'book__room') {
     let newBooking = currentUser.makeBooking(currentUser.id, userSelectedDate, event.target.value)
-    apiRequest.recordBooking(newBooking);
+    let onSuccess = () => {
+      updatedBookingsDisplay();
+    }
+    apiRequest.recordBooking(newBooking, onSuccess);
+    alert('Sucess!');
+  } else {
+    console.log('uhoh!');
   }
 }
 
@@ -230,7 +236,7 @@ function managerRoomBookingsDisplay(name) {
                             <p>${currentUser.name}\'s Booking for:</p>
                             <p>Room Number: ${booking.roomNumber}</p>
                             <p>Booking Date: ${booking.date}</p>
-                            <button class='${booking.date}' value='${booking.roomNumber}' id='${booking.id}'>Cancel Booking</button>
+                            <button class='${booking.date}' value='cancel' id='${booking.id}'>Cancel Booking</button>
                           </article>`;
     bookingHTML += bookingDisplay;
   })
@@ -254,10 +260,31 @@ function deleteUserBooking(event) {
   let today = getTodaysDate();
   let bookingDate = event.target.classList.value;
   let bookingIdentity = event.target.id;
-  if (today > bookingDate) {
-    alert('Past reservations cannot be deleted!')
-  } else {
-    apiRequest.deleteBooking(bookingIdentity)
+  let cancelButtonEval = event.target.value;
+  // if (today > bookingDate) {
+  //   alert('Past reservations cannot be deleted!')
+  if (today <= bookingDate && cancelButtonEval === 'cancel') {
+    let onSuccess = () => {
+      updatedBookingsDisplay();
+    }
+    apiRequest.deleteBooking(bookingIdentity, onSuccess);
     alert(`You have deleted the booking for ${currentUser.name} on ${bookingDate}`);
+  } else if (today > bookingDate && cancelButtonEval === 'cancel') {
+    alert('Past reservations cannot be deleted!')
+  }
+}
+function getUpdatedBookings() {
+  updatedBookingsData = apiRequest.getBookingsData();
+  updatedBookingsData
+    .then(value => {
+      bookingData = value;
+      updatedBookingsDisplay();
+    })
+}
+function updatedBookingsDisplay() {
+  if (!isManager) {
+    displayRoomBookings(currentUser);
+  } else {
+    managerRoomBookingsDisplay(currentUser);
   }
 }
