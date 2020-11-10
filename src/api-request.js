@@ -35,7 +35,9 @@ const apiRequest = {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(booking),
+      body: JSON.stringify({
+        'id': parseInt(booking)
+      }),
     })
     .then(response => response.json())
     .catch(error => console.log(error));
