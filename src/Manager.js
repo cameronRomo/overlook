@@ -3,24 +3,7 @@ class Manager extends User {
   constructor(userDetails) {
     super(userDetails);
   }
-
-  searchUsers(users, name) {
-    let foundUser = users.find(user => {
-      return user.name === name;
-    })
-    return new User(foundUser);
-  }
-
-  viewUserBookings(bookingsList, users, name) {
-    let user = this.searchUsers(users, name);
-    return user.viewBookings(bookingsList);
-  }
-
-  addBooking(users, name, date, roomNumber) {
-    let user = this.searchUsers(users, name);
-    return user.makeBooking(user.id, date, roomNumber);
-  }
-
+  
   totalRoomsAvailable(bookingsDetails, roomsDetails, date) {
     return this.checkAvailability(bookingsDetails, roomsDetails, date).length;
   }
