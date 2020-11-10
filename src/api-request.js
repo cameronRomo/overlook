@@ -17,7 +17,7 @@ const apiRequest = {
       .catch(error => console.log(error));
   },
 
-  recordBooking(booking) {
+  recordBooking(booking, onSuccess) {
     fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
       method: 'POST',
       headers: {
@@ -26,10 +26,13 @@ const apiRequest = {
       body: JSON.stringify(booking),
     })
     .then(response => response.json())
+    .then(response => {
+      onSuccess()
+    })
     .catch(error => console.log(error));
   },
 
-  deleteBooking(booking) {
+  deleteBooking(booking, onSuccess) {
     fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
       method: 'DELETE',
       headers: {
@@ -40,6 +43,9 @@ const apiRequest = {
       }),
     })
     .then(response => response.json())
+    .then(response => {
+      onSuccess();
+    })
     .catch(error => console.log(error));
   }
 };
