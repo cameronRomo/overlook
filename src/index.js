@@ -165,6 +165,9 @@ function bookRoom(event) {
 
 function displayRooms(roomSet, roomsSection) {
 let roomsHTML = '';
+if (roomSet.includes('forgiveness')) {
+  alert(roomSet);
+} else {
   roomSet.forEach(room => {
     let roomDisplay = `<article class='available__rooms'>
                         <p>Room Number: ${room.number}</p>
@@ -178,8 +181,8 @@ let roomsHTML = '';
     roomsHTML += roomDisplay;
   })
   roomsSection.innerHTML = roomsHTML;
+  }
 }
-
 
 function displayRoomBookings(name) {
   let bookingHTML = '';

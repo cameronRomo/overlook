@@ -53,7 +53,6 @@ class User {
   filterRoomByType(bookingsDetails, roomsDetails, date, type) {
     let availableRooms = this.checkAvailability(bookingsDetails, roomsDetails, date);
     let roomsByType = availableRooms.filter(room => {
-      console.log(room.roomType);
       return room.roomType === type;
     })
     if(roomsByType.length === 0) {
