@@ -167,7 +167,7 @@ function bookRoom(event) {
     apiRequest.recordBooking(newBooking, onSuccess);
     alert('Sucess!');
   } else {
-    console.log('uhoh!');
+    return;
   }
 }
 
