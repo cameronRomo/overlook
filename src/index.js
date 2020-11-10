@@ -45,11 +45,13 @@ const typeSubmitButton = document.querySelector('#room-search__type');
 const bookRoomButton = document.querySelector('.body__user__dashboard__bookings');
 const managerViewBookings = document.querySelector('.user__bookings');
 const managerViewRooms = document.querySelector('.show__rooms__on__search-2');
+const removeBookingButton = document.querySelector('.body__manager__dashboard__rooms-ocupied');
 
 signInButton.addEventListener('click', validateLogin);
 dateSubmitButton.addEventListener('click', getSelectedDate);
 typeSubmitButton.addEventListener('click', getType);
 bookRoomButton.addEventListener('click', bookRoom);
+removeBookingButton.addEventListener('click', deleteBooking);
 dropdownForManagerSelection.addEventListener('change', chooseUser);
 
 const recievedUsersData = apiRequest.getUsersData();
@@ -75,7 +77,7 @@ function getTodaysDate() {
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0');
   var yyyy = today.getFullYear();
-  return today = yyyy + '-' + mm + '-' + dd;
+  return today = yyyy + '/' + mm + '/' + dd;
 }
 
 function validateLogin(event) {
@@ -226,12 +228,13 @@ function managerRoomBookingsDisplay(name) {
     let bookingDisplay = `<article class='past__upcoming__bookings__user'>
                             <p>Room Number: ${booking.roomNumber}</p>
                             <p>Booking Date: ${booking.date}</p>
-                            <button value='${booking.roomNumber}' id='remove__booking'>Cancel Booking</button>
+                            <button class='${booking.date}' value='${booking.roomNumber}' id='${booking.id}'>Cancel Booking</button>
                           </article>`;
     bookingHTML += bookingDisplay;
   })
   managerViewBookings.innerHTML = bookingHTML;
 }
+
 
 function showUsers() {
   let userDropDownList = userData.reduce((usersHTML, user) => {
@@ -239,4 +242,17 @@ function showUsers() {
     return usersHTML;
   }, '')
   document.querySelector('#user-drop').insertAdjacentHTML('afterend', userDropDownList)
+}
+
+function deleteBooking(event) {
+  let today = getTodaysDate();
+  let bookingDate = event.target.classList.value;
+  let bookingIdentity = event.target.id;
+  console.log(bookingIdentity);
+  if (today > bookingDate) {
+    alert('Past reservations cannot be deleted!')
+  } else {
+    apiRequest.deleteBooking(bookingIdentity)
+    alert(`You have deleted the booking for ${currentUser.name} on ${bookingDate}`);
+  }
 }
