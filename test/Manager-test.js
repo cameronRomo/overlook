@@ -21,26 +21,7 @@ describe('Manager', function() {
   })
 
   it('should have a name', function() {
-    expect(manager.name).to.equal('Guy');
-  })
-
-  it('should find a user given a specific name', function() {
-    let foundUser = manager.searchUsers(users, 'Leatha Ullrich')
-    expect(foundUser).to.deep.equal(users[0]);
-  })
-
-  it('should be able to view a user\'s bookings', function() {
-    let bookingsByDate = manager.viewUserBookings(bookings, users, 'Leatha Ullrich')
-    expect(bookingsByDate).to.deep.equal([bookings[3], bookings[0], bookings[1]]);
-  })
-
-  it('should be able to make a booking for a user', function() {
-    let userBooking = manager.addBooking(users, 'Leatha Ullrich', '2020/04/22', 5);
-    expect(userBooking).to.deep.equal({
-      'userID': 1,
-      'date': '2020/04/22',
-      'roomNumber': 5
-    });
+    expect(manager.name).to.equal('His/Her Highness');
   })
 
   it('should return the number of rooms occupied', function() {
