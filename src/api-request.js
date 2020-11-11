@@ -25,11 +25,11 @@ const apiRequest = {
       },
       body: JSON.stringify(booking),
     })
-    .then(response => response.json())
-    .then(response => {
-      onSuccess()
-    })
-    .catch(error => console.log(error));
+      .then(response => response.json())
+      .then(response => {
+        onSuccess()
+      })
+      .catch(error => console.log(error));
   },
 
   deleteBooking(booking, onSuccess) {
@@ -42,11 +42,11 @@ const apiRequest = {
         'id': parseInt(booking)
       }),
     })
-    .then(response => response.json())
-    .then(response => {
-      onSuccess();
-    })
-    .catch(error => console.log(error));
+      .then(response => response.json())
+      .then(response => {
+        onSuccess();
+      })
+      .catch(error => console.log(error));
   }
 };
 

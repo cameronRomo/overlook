@@ -10,8 +10,8 @@ const expect = chai.expect
 describe('apiRequest', function() {
 
   before(function() {
-      global.apiRequest = {};
-      chai.spy.on(apiRequest, ['getUsersData', 'getRoomsData', 'getBookingsData']);
+    global.apiRequest = {};
+    chai.spy.on(apiRequest, ['getUsersData', 'getRoomsData', 'getBookingsData']);
   });
 
   it('should be able to fetch all the user data', function() {

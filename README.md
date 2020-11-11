@@ -28,7 +28,7 @@ This was a Mod 2 solo project assigned at the end of the mod. The primary functi
 ![user-landing](https://user-images.githubusercontent.com/63012953/98772589-4b4edb80-23a4-11eb-8a0f-19ee066aa42e.gif)
 
 ## User Interaction
-![user-interaction](https://user-images.githubusercontent.com/63012953/98772874-f65f9500-23a4-11eb-966b-d83104fe4ef2.gif)
+![user-interaction-2](https://user-images.githubusercontent.com/63012953/98838372-6dc31200-2401-11eb-86f2-d22639d15afa.gif)
 
 ## Manager Landing
 ![manager-landing](https://user-images.githubusercontent.com/63012953/98771555-ef835300-23a1-11eb-9a46-93fb2fd712b4.gif)
