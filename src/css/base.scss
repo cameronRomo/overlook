@@ -1,53 +1,160 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+@import './variables.scss';
+@import './mixins.scss';
 
 html,body {
   margin: 0;
-  width: 100%;
-  height: 100%;
+  @include whole-container;
+  background-color: pink;
 }
 
 body {
   background-image: url('../images/grand-budapest.jpg');
+  position: absolute;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   font-family: 'Lora', serif;
 }
 
-
 p {
-  color: #ffebcd;
+  color: $primary-text-color;
 }
 
 h1 {
   color: honeydew;
 }
 
+.nav {
+  overflow: hidden;
+  background-color: $nav-background-color;
+  padding: 5px 0 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.body__manager__dashboard-user-dropdown__select {
+  padding: 3px;
+  margin-left: 1em;
+  background-color: $button-color-primary;
+  border-style: solid;
+  border-color: $button-color-primary;
+  border-radius: $border-radius;
+}
+
+.booking__dates {
+  border-radius: $border-radius;
+  border-color: $nav-background-color;
+  border-style: solid;
+  background-color: $nav-background-color;
+  margin-left: 1em;
+}
+//variables needed
+
+
+.date__submit__button {
+  padding: 3px;
+  background-color: $button-color-primary;
+  border-style: solid;
+  border-color: $button-color-primary;
+  border-radius: $border-radius;
+}
+
+//@mixin
+.date__submit__button:hover {
+  color: $button-color-secondary;
+  filter: drop-shadow(8px 8px 10px $button-color-secondary);
+}
+
+.type__search__button {
+  padding: 3px;
+  margin-right: 1em;
+  background-color: $button-color-primary;
+  border-style: solid;
+  border-color: $button-color-primary;
+  border-radius: $border-radius;
+}
+
+.type__search__button:hover {
+  color: $button-color-secondary;
+  filter: drop-shadow(8px 8px 10px $button-color-secondary);
+}
+
+.type__search {
+  padding: 3px;
+}
+
 .past__upcoming__bookings__user {
-  // background-image: url('../images/hotel-room.jpg');
-  background-color: magenta;
-  background-size: auto;
-  background-repeat: no-repeat;
+  background-image: url('../images/bookings.jpg');
+  @include contain-image;
+  //height: 10em;
+  height: 100%;
+  width: 85%;
+  margin: .5em .5em .5em 1.0em;
+  border-left: solid;
+  border-left-width: medium;
+}
+
+.show__rooms__on__search-1, .show__rooms__on__search-2 {
+ @include grid-thirds;
+ grid-row-gap: 18px;
+}
+
+.body__manager__dashboard {
+  background-color: transparentize(palevioletred, .6);
+  width: 100%;
+  padding: .5em .5em .5em 2em;
+}
+
+.room{
+  border-bottom: solid;
+  border-bottom-width: thin;
+  border-bottom-style: inset;
+  border-left: outset;
 }
 
 .available__rooms {
   background-image: url('../images/hotel-room.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
+  @include contain-image;
+  height: 100%;
+  width: 85%;
+  margin: 0em 0.5em 0em 1em;
+  border-left: solid;
+  border-left-width: medium;
+}
+
+#book__room {
+  padding: 3px;
+  background-color: $button-color-secondary;
+  border-style: solid;
+  border-color: $button-color-secondary;
+  border-radius: $border-radius;
+}
+
+#book__room:hover {
+  color: $button-color-primary;
+  filter: drop-shadow(8px 8px 10px $button-color-primary);
+}
+
+.past__upcoming__bookings {
+  @include grid-thirds;
+  grid-row-gap: 18px;
+}
+
+.booking__information {
+  color: lightyellow;
+  font-size: 30px;
+  width: 30%;
 }
 
 .welcome {
-  color: #ffebcd;
+  color: $primary-text-color;
 }
 
 .modal__overlay-welcome{
   color: lightcyan;
   font-size: 55px;
-  display: flex;
-  justify-content: center;
-  margin-top: 140px;
+  @include center-content;
+  margin-top: 80px;
 }
 
 .modal {
@@ -55,7 +162,7 @@ h1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ffebcd;
+  background-color: $primary-text-color;
   width: 300px;
   max-width: 100%;
   height: 200px;
@@ -68,37 +175,39 @@ h1 {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  @include whole-container;
   overflow: auto;
   flex-direction: column;
   justify-content: space-around;
 }
 
 .modal__login__button {
-  background: aliceblue;
+  background: lightcyan;
   color: darkslategray;
   padding: 14px 20px;
   margin: 0em 25% 1em 25%;
   border: none;
+  border-radius: $border-radius;
   cursor: pointer;
   width: 50%;
 }
 
+.modal__login__button:hover {
+  color: $button-color-secondary;
+  filter: drop-shadow(8px 8px 10px $button-color-secondary);
+}
+
 .modal__content__username {
-  display: flex;
-  justify-content: center;
+  @include center-content;
   margin-top: 1em;
 }
 
 .modal__content__user-password{
-  display: flex;
-  justify-content: center;
+  @include center-content;
 }
 
 .modal__content__user-input{
-  display: flex;
-  justify-content: center;
+  @include center-content;
   margin: 0em 25% 1em 25%;
 }
 
@@ -107,12 +216,21 @@ h1 {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  @include whole-container;
 }
 
 .modal.closed {
   display: none;
+}
+
+.body__user__dashboard__bookings {
+  background-color: transparentize(crimson, .6);
+  width: 100%;
+}
+
+.user__bookings {
+  background-color: transparentize(crimson, .6);
+  width: 100%;
 }
 
 .body__manager__dashboard--today {
@@ -127,4 +245,120 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+//<------------------------------snow!----------------------->
+
+.snowflake {
+  color: #fff;
+  font-size: 1em;
+  font-family: Arial;
+  text-shadow: 0 0 1px #000;
+}
+
+@-webkit-keyframes snowflakes-fall{
+  0%{
+    top:-10%}
+    100%{
+      top:100%
+    }
+  }
+@-webkit-keyframes snowflakes-shake{
+  0%{
+    -webkit-transform:translateX(0px);transform:translateX(0px)
+  }
+  50%{
+    -webkit-transform:translateX(80px);transform:translateX(80px)
+  }
+  100%{
+    -webkit-transform:translateX(0px);transform:translateX(0px)
+  }
+}
+@keyframes snowflakes-fall{
+  0%{
+    top:-10%
+  }
+  100%{
+    top:100%
+  }
+}
+@keyframes snowflakes-shake{
+  0%{
+    transform:translateX(0px)
+  }
+  50%{
+    transform:translateX(80px)
+  }
+  100%{
+    transform:translateX(0px)
+  }
+}
+.snowflake{
+  position: fixed;
+  top: -10%;
+  z-index: 9999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+  -webkit-animation-name: snowflakes-fall,snowflakes-shake;
+  -webkit-animation-duration: 10s,3s;
+  -webkit-animation-timing-function: linear,ease-in-out;
+  -webkit-animation-iteration-count: infinite,infinite;
+  -webkit-animation-play-state: running,running;
+  animation-name: snowflakes-fall,snowflakes-shake;
+  animation-duration: 10s,3s;
+  animation-timing-function: linear,ease-in-out;
+  animation-iteration-count: infinite,infinite;animation-play-state:running,running
+}
+.snowflake:nth-of-type(0){
+  left: 1%;
+  -webkit-animation-delay: 0s,0s;
+  animation-delay: 0s,0s;
+}
+.snowflake:nth-of-type(1){
+  left: 10%;
+  -webkit-animation-delay: 1s,1s;
+  animation-delay: 1s,1s;
+}
+.snowflake:nth-of-type(2){
+  left: 20%;
+  -webkit-animation-delay: 6s,.5s;
+  animation-delay: 6s,.5s;
+}
+.snowflake:nth-of-type(3){
+  left: 30%;
+  -webkit-animation-delay: 4s,2s;
+  animation-delay: 4s,2s;
+}
+.snowflake:nth-of-type(4){
+  left: 40%;
+  -webkit-animation-delay: 2s,2s;
+  animation-delay: 2s,2s;
+}
+.snowflake:nth-of-type(5){
+  left: 50%;
+  -webkit-animation-delay: 8s,3s;
+  animation-delay: 8s,3s;
+}
+.snowflake:nth-of-type(6){
+  left: 60%;
+  -webkit-animation-delay: 6s,2s;
+  animation-delay: 6s,2s;
+}
+.snowflake:nth-of-type(7){
+  left: 70%;
+  -webkit-animation-delay: 2.5s,1s;
+  animation-delay: 2.5s,1s;
+}
+.snowflake:nth-of-type(8){
+  left: 80%;
+  -webkit-animation-delay: 1s,0s;
+  animation-delay: 1s,0s;
+}
+.snowflake:nth-of-type(9){
+  left: 90%;
+  -webkit-animation-delay: 3s,1.5s;
+  animation-delay: 3s,1.5s;
 }

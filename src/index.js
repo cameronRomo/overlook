@@ -1,11 +1,5 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/base.scss';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/user.svg'
+import'./css/base.scss';
+import'./images/user.svg';
 
 import Booking from './Booking';
 import User from './User';
@@ -100,14 +94,15 @@ function validateLogin(event) {
 }
 
 function openManagerDash() {
+  let today = getTodaysDate();
   managerDash.classList.remove('hidden');
   dropdownForManager.classList.remove('hidden');
   nav.classList.remove('hidden');
   modal.classList.add('hidden');
   modalOverlay.classList.add('hidden');
-  numberOfRoomsAvailable(bookingData, roomData, "2020/04/22");
-  todaysRevenue(bookingData, roomData, "2020/04/22");
-  percentOccupied(bookingData, roomData, "2020/04/22");
+  numberOfRoomsAvailable(bookingData, roomData, today);
+  todaysRevenue(bookingData, roomData, today);
+  percentOccupied(bookingData, roomData, today);
 }
 
 function openUserDash() {
@@ -161,7 +156,13 @@ function getSelectedDate() {
 function bookRoom(event) {
   if(event.target.id === 'book__room') {
     let newBooking = currentUser.makeBooking(currentUser.id, userSelectedDate, event.target.value)
-    apiRequest.recordBooking(newBooking);
+    let onSuccess = () => {
+      updatedBookingsDisplay();
+    }
+    apiRequest.recordBooking(newBooking, onSuccess);
+    alert('Sucess!');
+  } else {
+    return;
   }
 }
 
@@ -171,14 +172,14 @@ if (roomSet.includes('forgiveness')) {
   alert(roomSet);
 } else {
   roomSet.forEach(room => {
-    let roomDisplay = `<article class='available__rooms'>
+    let roomDisplay = `<article class='available__rooms' tabindex="0">
                         <p>Room Number: ${room.number}</p>
-                        <p>Room Type: ${room.roomType}</p>
+                        <p class='room'>Room Type: ${room.roomType}</p>
                         <p>Bidet? ${room.bidet}</p>
                         <p>Bed Size: ${room.bedSize}</p>
                         <p>Nuber of Beds: ${room.numBeds}</p>
-                        <p>Cost Per Night: ${room.costPerNight}</p>
-                        <button value='${room.number}' id='book__room'>Book This Room</button>
+                        <p class='room'>Cost Per Night: ${room.costPerNight}</p>
+                        <button value='${room.number}' id='book__room' tabindex="0">Book This Room</button>
                       </article>`;
     roomsHTML += roomDisplay;
   })
@@ -190,9 +191,9 @@ function displayRoomBookings(name) {
   let bookingHTML = '';
   let userBookings = name.viewBookings(bookingData);
   userBookings.forEach(booking => {
-    let bookingDisplay = `<article class='past__upcoming__bookings__user'>
-                            <p>Room Number: ${booking.roomNumber}</p>
-                            <p>Booking Date: ${booking.date}</p>
+    let bookingDisplay = `<article class='past__upcoming__bookings__user' tabindex="0">
+                            <p class='booking__information'>Room Number: ${booking.roomNumber}</p>
+                            <p class='booking__information'>Booking Date: ${booking.date}</p>
                           </article>`;
     bookingHTML += bookingDisplay;
   })
@@ -226,11 +227,11 @@ function managerRoomBookingsDisplay(name) {
   let bookingHTML = '';
   let userBookings = name.viewBookings(bookingData);
   userBookings.forEach(booking => {
-    let bookingDisplay = `<article class='past__upcoming__bookings__user'>
+    let bookingDisplay = `<article class='past__upcoming__bookings__user' tabindex="0">
                             <p>${currentUser.name}\'s Booking for:</p>
-                            <p>Room Number: ${booking.roomNumber}</p>
-                            <p>Booking Date: ${booking.date}</p>
-                            <button class='${booking.date}' value='${booking.roomNumber}' id='${booking.id}'>Cancel Booking</button>
+                            <p class='booking__information'>Room Number: ${booking.roomNumber}</p>
+                            <p class='booking__information'>Booking Date: ${booking.date}</p>
+                            <button class='${booking.date}' value='cancel' id='${booking.id}' tabindex="0">Cancel Booking</button>
                           </article>`;
     bookingHTML += bookingDisplay;
   })
@@ -254,10 +255,31 @@ function deleteUserBooking(event) {
   let today = getTodaysDate();
   let bookingDate = event.target.classList.value;
   let bookingIdentity = event.target.id;
-  if (today > bookingDate) {
-    alert('Past reservations cannot be deleted!')
-  } else {
-    apiRequest.deleteBooking(bookingIdentity)
+  let cancelButtonEval = event.target.value;
+  // if (today > bookingDate) {
+  //   alert('Past reservations cannot be deleted!')
+  if (today <= bookingDate && cancelButtonEval === 'cancel') {
+    let onSuccess = () => {
+      updatedBookingsDisplay();
+    }
+    apiRequest.deleteBooking(bookingIdentity, onSuccess);
     alert(`You have deleted the booking for ${currentUser.name} on ${bookingDate}`);
+  } else if (today > bookingDate && cancelButtonEval === 'cancel') {
+    alert('Past reservations cannot be deleted!')
+  }
+}
+function getUpdatedBookings() {
+  updatedBookingsData = apiRequest.getBookingsData();
+  updatedBookingsData
+    .then(value => {
+      bookingData = value;
+      updatedBookingsDisplay();
+    })
+}
+function updatedBookingsDisplay() {
+  if (!isManager) {
+    displayRoomBookings(currentUser);
+  } else {
+    managerRoomBookingsDisplay(currentUser);
   }
 }
