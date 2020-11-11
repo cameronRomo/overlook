@@ -24,11 +24,11 @@ class User {
 
   calculateTotal(bookingsDetails, roomsDetails) {
     let grandTotal = this.viewBookings(bookingsDetails).reduce((userTotal, booking) => {
-        let userRoom = roomsDetails.find(room => {
-         return booking.roomNumber === room.number;
-        })
-        userTotal += userRoom.costPerNight;
-        return userTotal
+      let userRoom = roomsDetails.find(room => {
+        return booking.roomNumber === room.number;
+      })
+      userTotal += userRoom.costPerNight;
+      return userTotal
     }, 0).toFixed(2)
     return Number(grandTotal);
   }
@@ -55,8 +55,8 @@ class User {
     let roomsByType = availableRooms.filter(room => {
       return room.roomType === type;
     })
-    if(roomsByType.length === 0) {
-      return `We prostrate ourselves before you and beg you for your forgiveness! There are no ${type}\'s available at that time.`
+    if (roomsByType.length === 0) {
+      return `We prostrate ourselves before you and beg you for your forgiveness! There are no ${type}'s available at that time.`
     }
     return roomsByType;
   }

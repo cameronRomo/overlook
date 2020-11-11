@@ -1,7 +1,5 @@
-import'./css/base.scss';
-import'./images/user.svg';
+import './css/base.scss';
 
-import Booking from './Booking';
 import User from './User';
 import Manager from './Manager';
 
@@ -27,7 +25,6 @@ const userDash = document.querySelector('.body__user')
 const nav = document.querySelector('.nav');
 const modal = document.querySelector('.modal');
 const modalOverlay = document.querySelector('.modal__overlay');
-const userDrop = document.querySelector('#user-drop');
 const dropdownForManager = document.querySelector('.nav__manager__dropdown');
 const dropdownForManagerSelection = document.querySelector('.body__manager__dashboard-user-dropdown__select')
 const customerRoomsSection = document.querySelector('.past__upcoming__bookings');
@@ -120,18 +117,6 @@ function displayTotalSpent(bookings, rooms) {
   customerTotal.innerText = `Welcome back ${currentUser.name}! You have spent $${totalSpent} at the Overlook.`;
 }
 
-function findRooms(bookings, rooms) {
-  let userBookings = currentUser.viewBookings(bookings);
-  let userRooms = userBookings.reduce((roomsPayedFor, booking) => {
-      let userRoom = rooms.find(room => {
-       return booking.roomNumber === room.number;
-      })
-      roomsPayedFor.push(userRoom);
-      return roomsPayedFor;
-  }, []);
-  return userRooms;
-}
-
 function getType() {
   let selectedDate = dateSelect.value;
   let search = typeSearch.value;
@@ -154,10 +139,10 @@ function getSelectedDate() {
 }
 
 function bookRoom(event) {
-  if(event.target.id === 'book__room') {
+  if (event.target.id === 'book__room') {
     let newBooking = currentUser.makeBooking(currentUser.id, userSelectedDate, event.target.value)
     let onSuccess = () => {
-      updatedBookingsDisplay();
+      getUpdatedBookings();
     }
     apiRequest.recordBooking(newBooking, onSuccess);
     alert('Sucess!');
@@ -167,23 +152,23 @@ function bookRoom(event) {
 }
 
 function displayRooms(roomSet, roomsSection) {
-let roomsHTML = '';
-if (roomSet.includes('forgiveness')) {
-  alert(roomSet);
-} else {
-  roomSet.forEach(room => {
-    let roomDisplay = `<article class='available__rooms' tabindex="0">
-                        <p>Room Number: ${room.number}</p>
-                        <p class='room'>Room Type: ${room.roomType}</p>
-                        <p>Bidet? ${room.bidet}</p>
-                        <p>Bed Size: ${room.bedSize}</p>
-                        <p>Nuber of Beds: ${room.numBeds}</p>
-                        <p class='room'>Cost Per Night: ${room.costPerNight}</p>
-                        <button value='${room.number}' id='book__room' tabindex="0">Book This Room</button>
-                      </article>`;
-    roomsHTML += roomDisplay;
-  })
-  roomsSection.innerHTML = roomsHTML;
+  let roomsHTML = '';
+  if (roomSet.includes('forgiveness')) {
+    alert(roomSet);
+  } else {
+    roomSet.forEach(room => {
+      let roomDisplay = `<article class='available__rooms' tabindex="0">
+                          <p>Room Number: ${room.number}</p>
+                          <p class='room'>Room Type: ${room.roomType}</p>
+                          <p>Bidet? ${room.bidet}</p>
+                          <p>Bed Size: ${room.bedSize}</p>
+                          <p>Nuber of Beds: ${room.numBeds}</p>
+                          <p class='room'>Cost Per Night: ${room.costPerNight}</p>
+                          <button value='${room.number}' id='book__room' tabindex="0">Book This Room</button>
+                        </article>`;
+      roomsHTML += roomDisplay;
+    })
+    roomsSection.innerHTML = roomsHTML;
   }
 }
 
@@ -228,7 +213,7 @@ function managerRoomBookingsDisplay(name) {
   let userBookings = name.viewBookings(bookingData);
   userBookings.forEach(booking => {
     let bookingDisplay = `<article class='past__upcoming__bookings__user' tabindex="0">
-                            <p>${currentUser.name}\'s Booking for:</p>
+                            <p>${currentUser.name}'s Booking for:</p>
                             <p class='booking__information'>Room Number: ${booking.roomNumber}</p>
                             <p class='booking__information'>Booking Date: ${booking.date}</p>
                             <button class='${booking.date}' value='cancel' id='${booking.id}' tabindex="0">Cancel Booking</button>
@@ -260,7 +245,7 @@ function deleteUserBooking(event) {
   //   alert('Past reservations cannot be deleted!')
   if (today <= bookingDate && cancelButtonEval === 'cancel') {
     let onSuccess = () => {
-      updatedBookingsDisplay();
+      getUpdatedBookings();
     }
     apiRequest.deleteBooking(bookingIdentity, onSuccess);
     alert(`You have deleted the booking for ${currentUser.name} on ${bookingDate}`);
@@ -269,7 +254,7 @@ function deleteUserBooking(event) {
   }
 }
 function getUpdatedBookings() {
-  updatedBookingsData = apiRequest.getBookingsData();
+  let updatedBookingsData = apiRequest.getBookingsData();
   updatedBookingsData
     .then(value => {
       bookingData = value;
