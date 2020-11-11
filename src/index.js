@@ -146,9 +146,8 @@ function bookRoom(event) {
     }
     apiRequest.recordBooking(newBooking, onSuccess);
     alert('Sucess!');
-  } else {
-    return;
   }
+  apiRequest
 }
 
 function displayRooms(roomSet, roomsSection) {
@@ -241,11 +240,13 @@ function deleteUserBooking(event) {
   let bookingDate = event.target.classList.value;
   let bookingIdentity = event.target.id;
   let cancelButtonEval = event.target.value;
-  // if (today > bookingDate) {
-  //   alert('Past reservations cannot be deleted!')
+  if (today > bookingDate) {
+    alert('Past reservations cannot be deleted!')
+  }
   if (today <= bookingDate && cancelButtonEval === 'cancel') {
     let onSuccess = () => {
-      getUpdatedBookings();
+      //updatedBookingsDisplay()
+       getUpdatedBookings();
     }
     apiRequest.deleteBooking(bookingIdentity, onSuccess);
     alert(`You have deleted the booking for ${currentUser.name} on ${bookingDate}`);
