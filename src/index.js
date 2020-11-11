@@ -1,11 +1,5 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/base.scss';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/user.svg'
+import'./css/base.scss';
+import'./images/user.svg';
 
 import Booking from './Booking';
 import User from './User';
@@ -100,14 +94,15 @@ function validateLogin(event) {
 }
 
 function openManagerDash() {
+  let today = getTodaysDate();
   managerDash.classList.remove('hidden');
   dropdownForManager.classList.remove('hidden');
   nav.classList.remove('hidden');
   modal.classList.add('hidden');
   modalOverlay.classList.add('hidden');
-  numberOfRoomsAvailable(bookingData, roomData, "2020/04/22");
-  todaysRevenue(bookingData, roomData, "2020/04/22");
-  percentOccupied(bookingData, roomData, "2020/04/22");
+  numberOfRoomsAvailable(bookingData, roomData, today);
+  todaysRevenue(bookingData, roomData, today);
+  percentOccupied(bookingData, roomData, today);
 }
 
 function openUserDash() {
@@ -177,14 +172,14 @@ if (roomSet.includes('forgiveness')) {
   alert(roomSet);
 } else {
   roomSet.forEach(room => {
-    let roomDisplay = `<article class='available__rooms'>
+    let roomDisplay = `<article class='available__rooms' tabindex="0">
                         <p>Room Number: ${room.number}</p>
                         <p class='room'>Room Type: ${room.roomType}</p>
                         <p>Bidet? ${room.bidet}</p>
                         <p>Bed Size: ${room.bedSize}</p>
                         <p>Nuber of Beds: ${room.numBeds}</p>
                         <p class='room'>Cost Per Night: ${room.costPerNight}</p>
-                        <button value='${room.number}' id='book__room'>Book This Room</button>
+                        <button value='${room.number}' id='book__room' tabindex="0">Book This Room</button>
                       </article>`;
     roomsHTML += roomDisplay;
   })
@@ -196,7 +191,7 @@ function displayRoomBookings(name) {
   let bookingHTML = '';
   let userBookings = name.viewBookings(bookingData);
   userBookings.forEach(booking => {
-    let bookingDisplay = `<article class='past__upcoming__bookings__user'>
+    let bookingDisplay = `<article class='past__upcoming__bookings__user' tabindex="0">
                             <p class='booking__information'>Room Number: ${booking.roomNumber}</p>
                             <p class='booking__information'>Booking Date: ${booking.date}</p>
                           </article>`;
@@ -232,11 +227,11 @@ function managerRoomBookingsDisplay(name) {
   let bookingHTML = '';
   let userBookings = name.viewBookings(bookingData);
   userBookings.forEach(booking => {
-    let bookingDisplay = `<article class='past__upcoming__bookings__user'>
+    let bookingDisplay = `<article class='past__upcoming__bookings__user' tabindex="0">
                             <p>${currentUser.name}\'s Booking for:</p>
                             <p class='booking__information'>Room Number: ${booking.roomNumber}</p>
                             <p class='booking__information'>Booking Date: ${booking.date}</p>
-                            <button class='${booking.date}' value='cancel' id='${booking.id}'>Cancel Booking</button>
+                            <button class='${booking.date}' value='cancel' id='${booking.id}' tabindex="0">Cancel Booking</button>
                           </article>`;
     bookingHTML += bookingDisplay;
   })

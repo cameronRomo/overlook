@@ -39,25 +39,22 @@
     </div>
     <nav class="nav hidden">
     <div class="nav__manager__dropdown hidden">
-      <!-- <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label> -->
-      <select class="body__manager__dashboard-user-dropdown__select" name="users">
+      <select aria-labelledby="user__dropdown__selection"class="body__manager__dashboard-user-dropdown__select" name="users">
         <option id="user-drop" disabled selected value> -- choose a customer -- </option>
       </select>
     </div>
     <span>
-      <!-- <label for="booking-date">View Room Availablity by Date</label> -->
-      <input class="booking__dates" type="date" name="booking-date" required>
-      <button class="date__submit__button"id="date__submit">Search by Date Only</button>
+      <input aria-labelledby="date__select" tabindex="0" class="booking__dates" type="date" name="booking-date" required>
+      <button class="date__submit__button"id="date__submit" tabindex="0">Search by Date Only</button>
     </span>
     <span>
-      <!-- <label for="room-search">Search Room by Type</label> -->
-      <input class="type__search" id="type__search" type="text" name="room-search" placeholder="i.e. residential suite">
-      <button class="type__search__button" id="room-search__type">Search Rooms by Date and Type</button>
+      <input aria-labelledby="search__room__type" class="type__search" id="type__search" type="text" name="room-search" placeholder="i.e. residential suite" tabindex="0">
+      <button class="type__search__button" id="room-search__type" tabindex="0">Search Rooms by Date and Type</button>
     </span>
     </nav>
     <h1 class="welcome">The Overlook Hotel</h1>
     <section class="body__user hidden">
-      <section class="body__user__dashboard">
+      <section class="body__user__dashboard" tabindex="0">
         <article class="body__user__dashboard__bookings">
           <p class="user__total">Total Spent</p>
           <p class="show__rooms__on__search-1">Here is your Booking Info:</p>
@@ -66,7 +63,7 @@
       </section>
     </section>
     <section class="body__manager hidden">
-      <section class="body__manager__dashboard">
+      <section class="body__manager__dashboard" tabindex="0">
         <h1>Today's Breakdown</h1>
         <article class="body__manager__dashboard__availability">
           <p class="body__manager__availability__count">Available Rooms</p>
@@ -85,11 +82,10 @@
       <span class="modal">
         <form class="modal__content">
             <label class="modal__content__username" for="username">Username</label>
-            <input class="modal__content__user-input" id="username" type="text" name="username" placeholder="Enter Username" required>
+            <input aria-labelledby="username" class="modal__content__user-input" id="username" type="text" name="username" placeholder="Enter Username" tabindex="0" required>
             <label class="modal__content__user-password" for="password">Password</label>
-            <input class="modal__content__user-input" id="password" type="password" name="password" placeholder="Enter Password" required>
-            <!-- <img class="body__image" src="./images/user.svg" alt="user-icon"> -->
-            <input class="modal__login__button" type="submit" value="Sign In">
+            <input aria-labelledby="password" class="modal__content__user-input" id="password" type="password" name="password" placeholder="Enter Password" tabindex="0" required>
+            <input class="modal__login__button" type="submit" value="Sign In" tabindex="0">
         </form>
       </span>
     </section>
@@ -97,5 +93,4 @@
       <h2 class="modal__overlay-welcome">Welcome! Please sign in.</h2>
     </div>
   </body>
-  <!-- Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> -->
 </html>
