@@ -6,15 +6,17 @@ class User {
 
   makeBooking(userID, date, roomNumber) {
     const booking = {
-      'userID': userID,
+      'userID': parseInt(userID, 10),
       'date': date,
-      'roomNumber': roomNumber
+      'roomNumber': parseInt(roomNumber, 10)
     }
     return booking;
   }
 
   viewBookings(bookingList) {
+    debugger
     let userBookings = bookingList.filter(booking => {
+      console.log('booking', booking);
       return booking.userID === this.id;
     })
     return userBookings.sort((a, b) => {
@@ -28,6 +30,7 @@ class User {
         return booking.roomNumber === room.number;
       })
       userTotal += userRoom.costPerNight;
+      // console.log('user total', userTotal);
       return userTotal
     }, 0).toFixed(2)
     return Number(grandTotal);

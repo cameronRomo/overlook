@@ -28,6 +28,7 @@ const apiRequest = {
       .then(response => response.json())
       .then(response => {
         onSuccess()
+        console.log("Booking successful");
       })
       .catch(error => console.log(error));
   },
