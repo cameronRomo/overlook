@@ -1,11 +1,9 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+@import './variables.scss';
+@import './mixins.scss';
 
 html,body {
   margin: 0;
-  width: 100%;
-  height: 100%;
+  @include whole-container;
   background-color: pink;
 }
 
@@ -19,7 +17,7 @@ body {
 }
 
 p {
-  color: #ffebcd;
+  color: $primary-text-color;
 }
 
 h1 {
@@ -28,7 +26,7 @@ h1 {
 
 .nav {
   overflow: hidden;
-  background-color: #FFFFF0;
+  background-color: $nav-background-color;
   padding: 5px 0 5px 0;
   display: flex;
   justify-content: space-between;
@@ -37,17 +35,17 @@ h1 {
 .body__manager__dashboard-user-dropdown__select {
   padding: 3px;
   margin-left: 1em;
-  background-color: #E0FFFF;
+  background-color: $button-color-primary;
   border-style: solid;
-  border-color: #E0FFFF;
-  border-radius: 5px;
+  border-color: $button-color-primary;
+  border-radius: $border-radius;
 }
 
 .booking__dates {
-  border-radius: 5px;
-  border-color: #FFFFF0;
+  border-radius: $border-radius;
+  border-color: $nav-background-color;
   border-style: solid;
-  background-color: #FFFFF0;
+  background-color: $nav-background-color;
   margin-left: 1em;
 }
 //variables needed
@@ -55,30 +53,30 @@ h1 {
 
 .date__submit__button {
   padding: 3px;
-  background-color: #E0FFFF;
+  background-color: $button-color-primary;
   border-style: solid;
-  border-color: #E0FFFF;
-  border-radius: 5px;
+  border-color: $button-color-primary;
+  border-radius: $border-radius;
 }
 
 //@mixin
 .date__submit__button:hover {
-  color: hotpink;
-  filter: drop-shadow(8px 8px 10px hotpink);
+  color: $button-color-secondary;
+  filter: drop-shadow(8px 8px 10px $button-color-secondary);
 }
 
 .type__search__button {
   padding: 3px;
   margin-right: 1em;
-  background-color: #E0FFFF;
+  background-color: $button-color-primary;
   border-style: solid;
-  border-color: #E0FFFF;
-  border-radius: 5px;
+  border-color: $button-color-primary;
+  border-radius: $border-radius;
 }
 
 .type__search__button:hover {
-  color: hotpink;
-  filter: drop-shadow(8px 8px 10px hotpink);
+  color: $button-color-secondary;
+  filter: drop-shadow(8px 8px 10px $button-color-secondary);
 }
 
 .type__search {
@@ -87,8 +85,7 @@ h1 {
 
 .past__upcoming__bookings__user {
   background-image: url('../images/bookings.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
+  @include contain-image;
   //height: 10em;
   height: 100%;
   width: 85%;
@@ -98,8 +95,7 @@ h1 {
 }
 
 .show__rooms__on__search-1, .show__rooms__on__search-2 {
- display: grid;
- grid-template-columns: repeat(3, 1fr);
+ @include grid-thirds;
  grid-row-gap: 18px;
 }
 
@@ -118,8 +114,7 @@ h1 {
 
 .available__rooms {
   background-image: url('../images/hotel-room.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
+  @include contain-image;
   height: 100%;
   width: 85%;
   margin: 0em 0.5em 0em 1em;
@@ -129,20 +124,19 @@ h1 {
 
 #book__room {
   padding: 3px;
-  background-color: hotpink;
+  background-color: $button-color-secondary;
   border-style: solid;
-  border-color: hotpink;
-  border-radius: 5px;
+  border-color: $button-color-secondary;
+  border-radius: $border-radius;
 }
 
 #book__room:hover {
-  color: #E0FFFF;
-  filter: drop-shadow(8px 8px 10px #E0FFFF);
+  color: $button-color-primary;
+  filter: drop-shadow(8px 8px 10px $button-color-primary);
 }
 
 .past__upcoming__bookings {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  @include grid-thirds;
   grid-row-gap: 18px;
 }
 
@@ -153,14 +147,13 @@ h1 {
 }
 
 .welcome {
-  color: #ffebcd;
+  color: $primary-text-color;
 }
 
 .modal__overlay-welcome{
   color: lightcyan;
   font-size: 55px;
-  display: flex;
-  justify-content: center;
+  @include center-content;
   margin-top: 80px;
 }
 
@@ -169,7 +162,7 @@ h1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ffebcd;
+  background-color: $primary-text-color;
   width: 300px;
   max-width: 100%;
   height: 200px;
@@ -182,8 +175,7 @@ h1 {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  @include whole-container;
   overflow: auto;
   flex-direction: column;
   justify-content: space-around;
@@ -195,30 +187,27 @@ h1 {
   padding: 14px 20px;
   margin: 0em 25% 1em 25%;
   border: none;
-  border-radius: 5px;
+  border-radius: $border-radius;
   cursor: pointer;
   width: 50%;
 }
 
 .modal__login__button:hover {
-  color: hotpink;
-  filter: drop-shadow(8px 8px 10px hotpink);
+  color: $button-color-secondary;
+  filter: drop-shadow(8px 8px 10px $button-color-secondary);
 }
 
 .modal__content__username {
-  display: flex;
-  justify-content: center;
+  @include center-content;
   margin-top: 1em;
 }
 
 .modal__content__user-password{
-  display: flex;
-  justify-content: center;
+  @include center-content;
 }
 
 .modal__content__user-input{
-  display: flex;
-  justify-content: center;
+  @include center-content;
   margin: 0em 25% 1em 25%;
 }
 
@@ -227,8 +216,7 @@ h1 {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  @include whole-container;
 }
 
 .modal.closed {
@@ -374,3 +362,4 @@ h1 {
   -webkit-animation-delay: 3s,1.5s;
   animation-delay: 3s,1.5s;
 }
+//<----media queries----->
