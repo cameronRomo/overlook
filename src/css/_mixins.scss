@@ -1,0 +1,19 @@
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin contain-image {
+ background-size: contain;
+ background-repeat: no-repeat;
+}
+
+@mixin grid-thirds {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@mixin whole-container {
+  width: 100%;
+  height: 100%;
+}
