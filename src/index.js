@@ -179,11 +179,11 @@ if (roomSet.includes('forgiveness')) {
   roomSet.forEach(room => {
     let roomDisplay = `<article class='available__rooms'>
                         <p>Room Number: ${room.number}</p>
-                        <p>Room Type: ${room.roomType}</p>
+                        <p class='room'>Room Type: ${room.roomType}</p>
                         <p>Bidet? ${room.bidet}</p>
                         <p>Bed Size: ${room.bedSize}</p>
                         <p>Nuber of Beds: ${room.numBeds}</p>
-                        <p>Cost Per Night: ${room.costPerNight}</p>
+                        <p class='room'>Cost Per Night: ${room.costPerNight}</p>
                         <button value='${room.number}' id='book__room'>Book This Room</button>
                       </article>`;
     roomsHTML += roomDisplay;
@@ -197,8 +197,8 @@ function displayRoomBookings(name) {
   let userBookings = name.viewBookings(bookingData);
   userBookings.forEach(booking => {
     let bookingDisplay = `<article class='past__upcoming__bookings__user'>
-                            <p>Room Number: ${booking.roomNumber}</p>
-                            <p>Booking Date: ${booking.date}</p>
+                            <p class='booking__information'>Room Number: ${booking.roomNumber}</p>
+                            <p class='booking__information'>Booking Date: ${booking.date}</p>
                           </article>`;
     bookingHTML += bookingDisplay;
   })
@@ -234,8 +234,8 @@ function managerRoomBookingsDisplay(name) {
   userBookings.forEach(booking => {
     let bookingDisplay = `<article class='past__upcoming__bookings__user'>
                             <p>${currentUser.name}\'s Booking for:</p>
-                            <p>Room Number: ${booking.roomNumber}</p>
-                            <p>Booking Date: ${booking.date}</p>
+                            <p class='booking__information'>Room Number: ${booking.roomNumber}</p>
+                            <p class='booking__information'>Booking Date: ${booking.date}</p>
                             <button class='${booking.date}' value='cancel' id='${booking.id}'>Cancel Booking</button>
                           </article>`;
     bookingHTML += bookingDisplay;

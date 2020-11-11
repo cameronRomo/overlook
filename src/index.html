@@ -5,19 +5,55 @@
     <title>Welcome to the Overlook</title>
   </head>
   <body>
+    <div class="snowflakes" aria-hidden="true">
+      <div class="snowflake">
+      ❅
+      </div>
+      <div class="snowflake">
+      ❅
+      </div>
+      <div class="snowflake">
+      ❆
+      </div>
+      <div class="snowflake">
+      ❄
+      </div>
+      <div class="snowflake">
+      ❅
+      </div>
+      <div class="snowflake">
+      ❆
+      </div>
+      <div class="snowflake">
+      ❄
+      </div>
+      <div class="snowflake">
+      ❅
+      </div>
+      <div class="snowflake">
+      ❆
+      </div>
+      <div class="snowflake">
+      ❄
+      </div>
+    </div>
     <nav class="nav hidden">
     <div class="nav__manager__dropdown hidden">
-      <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label>
+      <!-- <label class="body__manager__dashboard-user-dropdown"for="users">Choose a user:</label> -->
       <select class="body__manager__dashboard-user-dropdown__select" name="users">
         <option id="user-drop" disabled selected value> -- choose a customer -- </option>
       </select>
-      </div>
-      <label for="booking-date">View Room Availablity by Date</label>
+    </div>
+    <span>
+      <!-- <label for="booking-date">View Room Availablity by Date</label> -->
       <input class="booking__dates" type="date" name="booking-date" required>
-      <button id="date__submit">Search by Date Only</button>
-      <label for="room-search">Search Room by Type</label>
-      <input id="type__search" type="text" name="room-search" placeholder="i.e. residential suite">
-      <button id="room-search__type">Search Rooms by Date and Type</button>
+      <button class="date__submit__button"id="date__submit">Search by Date Only</button>
+    </span>
+    <span>
+      <!-- <label for="room-search">Search Room by Type</label> -->
+      <input class="type__search" id="type__search" type="text" name="room-search" placeholder="i.e. residential suite">
+      <button class="type__search__button" id="room-search__type">Search Rooms by Date and Type</button>
+    </span>
     </nav>
     <h1 class="welcome">The Overlook Hotel</h1>
     <section class="body__user hidden">
@@ -45,7 +81,7 @@
         </article>
       </section>
     </section>
-    <section class="modal" id="login">
+    <section class="modal " id="login">
       <span class="modal">
         <form class="modal__content">
             <label class="modal__content__username" for="username">Username</label>
@@ -57,7 +93,7 @@
         </form>
       </span>
     </section>
-    <div class="modal__overlay">
+    <div class="modal__overlay ">
       <h2 class="modal__overlay-welcome">Welcome! Please sign in.</h2>
     </div>
   </body>
